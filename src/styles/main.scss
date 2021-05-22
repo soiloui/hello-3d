@@ -1,0 +1,46 @@
+@import './defaults';
+@import './variables';
+
+body {
+	height: 100vh;
+
+	color: #fff;
+	background: #202020;
+	overflow-x: hidden;
+}
+
+.webgl {
+	position: absolute;
+	top: 0;
+	left: 0;
+	outline: none;
+	mix-blend-mode: color;
+}
+
+.container {
+	display: grid;
+	place-items: center;
+
+	padding: 2em;
+	height: 100vh;
+
+	text-align: center;
+}
+
+h1 {
+	// display: none;
+	padding: 0.2em;
+
+	font-size: 7rem;
+	text-transform: uppercase;
+
+	text-shadow: 2px 12px 12px #000;
+	// border: 1px solid #ffffff66;
+	// border-radius: 5px;
+	// background: rgba(255, 255, 255, 0.1);
+	// box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+section {
+	height: 100vh;
+}

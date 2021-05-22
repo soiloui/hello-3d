@@ -1,0 +1,24 @@
+{
+  "name": "hello-3d",
+  "version": "1.0.0",
+  "description": "web application that uses three.js library.",
+  "main": "index.html",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build && fsutil file createnew docs/.nojekyll 0",
+    "deploy": "snowpack build && git add docs && git commit -m deploy && git push -u origin main"
+  },
+  "keywords": [],
+  "author": "soiloui",
+  "license": "ISC",
+  "dependencies": {
+    "@snowpack/plugin-sass": "^1.4.0",
+    "dat.gui": "^0.7.7",
+    "snowpack-plugin-baseurl-handler": "0.0.3",
+    "three": "^0.128.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-babel": "^2.1.7",
+    "snowpack": "^3.5.0"
+  }
+}
