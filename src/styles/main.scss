@@ -1,46 +1,133 @@
-@import './defaults';
-@import './variables';
+@import "./defaults";
+@import "./variables";
 
 body {
-	height: 100vh;
+  height: 100vh;
 
-	color: #fff;
-	background: #202020;
-	overflow-x: hidden;
-}
-
-.webgl {
-	position: absolute;
-	top: 0;
-	left: 0;
-	outline: none;
-	mix-blend-mode: color;
+  color: #fff;
+  background: $clr-primary;
+  overflow-x: hidden;
 }
 
 .container {
-	display: grid;
-	place-items: center;
+  position: relative;
+  display: grid;
+  place-items: center;
 
-	padding: 2em;
-	height: 100vh;
+  padding: 2em;
+  height: 100vh;
 
-	text-align: center;
+  text-align: center;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  height: 100px;
+  width: 100%;
+  background: linear-gradient(to top, #202020 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.webgl,
+.webgl-second {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+.webgl {
+  mix-blend-mode: overlay;
 }
 
 h1 {
-	// display: none;
-	padding: 0.2em;
+  padding: 0.2em;
 
-	font-size: 7rem;
-	text-transform: uppercase;
+  font-size: 7rem;
+  text-transform: uppercase;
 
-	text-shadow: 2px 12px 12px #000;
-	// border: 1px solid #ffffff66;
-	// border-radius: 5px;
-	// background: rgba(255, 255, 255, 0.1);
-	// box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 12px 12px #000;
+
+  animation: fade-Move-In 2s ease;
+}
+
+@keyframes fade-Move-In {
+  from {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 section {
-	height: 100vh;
+  $gradient-hegiht: 50px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: $wrapper-padding;
+  height: calc(100vh + #{$gradient-hegiht});
+
+  overflow: hidden;
+
+  &:nth-child(odd) {
+    color: $clr-primary;
+    background: #fff;
+
+    &::before {
+      background: linear-gradient(
+        to bottom,
+        #202020 20%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+  }
+
+  section.second-3d {
+    justify-content: flex-end;
+  }
+
+  &:nth-child(even) {
+    &::before {
+      background: linear-gradient(to bottom, #fff 20%, rgba(0, 0, 0, 0) 100%);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: $gradient-hegiht;
+    width: 100%;
+  }
+}
+
+section .text-content {
+  padding: 2em;
+
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0.5em;
+    font-size: 3rem;
+  }
+}
+
+.second-3d .text-content {
+  color: #fff;
+  background: #00000090;
+  box-shadow: 2px 5px 9px rgba(0, 0, 0, 0.4);
+
+  z-index: 10;
 }

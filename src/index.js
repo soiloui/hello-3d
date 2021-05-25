@@ -10,19 +10,27 @@ const gui = new dat.GUI();
 // ____ Loading
 const textureLoader = new THREE.TextureLoader();
 const normalTexture = textureLoader.load('./img/texture_6.jpeg');
+const normalTextureSecond = textureLoader.load('./img/texture_5.jpeg');
 
 // ____ Canvas
 const canvas = document.querySelector('.webgl');
+const canvasSecond = document.querySelector('.webgl-second');
 
 // ____ Scene
 const scene = new THREE.Scene();
+const sceneSecond = new THREE.Scene();
 
 // ____ Scene Fog
 {
 	const near = 1;
-	const far = 15;
+	const far = 25;
 	const color = 0x232323;
 	scene.fog = new THREE.Fog(color, near, far);
+
+	const nearSecond = 1;
+	const farSecond = 4;
+	const colorSecond = 0x232323;
+	sceneSecond.fog = new THREE.Fog(colorSecond, nearSecond, farSecond);
 }
 
 // ____ Stars
@@ -35,8 +43,8 @@ function getRandom() {
 	return num;
 }
 
-for (let i = 0; i < 300; i++) {
-	let geometry = new THREE.SphereBufferGeometry(0.02, 64, 64);
+for (let i = 0; i < 200; i++) {
+	let geometry = new THREE.SphereBufferGeometry(0.04, 8, 8);
 	// let material = new THREE.MeshBasicMaterial({ map: starTexture });
 	let material = new THREE.MeshBasicMaterial();
 	material.color = new THREE.Color(0xffffff);
@@ -62,6 +70,7 @@ var rotSpeed = 0.001;
 
 // ____ Objects
 const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64);
+const geometrySecond = new THREE.TorusKnotBufferGeometry(0.5, 0.2, 128, 16);
 
 // ____ Materials
 const material = new THREE.MeshStandardMaterial();
@@ -69,14 +78,18 @@ const material = new THREE.MeshStandardMaterial();
 // material.roughness = 0.2;
 // material.wireframe = true;
 material.normalMap = normalTexture;
-
 material.color = new THREE.Color(0xffffff);
 // material.color = new THREE.Color(0x54f0d1);
+
+const materialSecond = new THREE.MeshBasicMaterial({color: 0x73ffe3});
+materialSecond.fog = true;
 
 // ____ Mesh
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
+const torusKnot = new THREE.Mesh(geometrySecond, materialSecond);
+sceneSecond.add(torusKnot);
 // ____ Lights
 
 const lightColor = { color: 0xffff };
@@ -128,12 +141,17 @@ camera.position.x = 0;
 camera.position.y = 0;
 camera.position.z = 2;
 scene.add(camera);
+sceneSecond.add(camera);
 
 // ____ Renderer
 
 const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const rendererSecond = new THREE.WebGL1Renderer({canvas: canvasSecond, alpha: true});
+rendererSecond.setSize(sizes.width, sizes.height);
+rendererSecond.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // ____ Animation
 
@@ -152,12 +170,20 @@ function mouseMoveAnimate(e) {
 	mouseX = e.clientX - windowHalfX;
 	mouseY = e.clientY - windowHalfY;
 }
-function mouseScrollAnimate(e) {
-	sphere.position.y = window.scrollY * 0.0015;
 
-	const h1 = document.querySelector('h1');
+const h1 = document.querySelector('h1');
+const textContent = document.querySelector('.text-content');
+
+function mouseScrollAnimate() {
+	sphere.position.y = window.scrollY * 0.0015;
+	torusKnot.position.y = window.scrollY * 0.0015 - 1.7;
+	torusKnot.opacity = 0;
+
+	textContent.style.transform = `translateY(-${window.scrollY * 0.8 - 800}%)`;
+	textContent.style.opacity = `${(window.scrollY * 0.003) - 2}`;
+
 	h1.style.transform = `translateX(-${window.scrollY * 0.15}%)`;
-	h1.style.opacity = `calc(1 - ${window.scrollY * 0.003})`;
+	h1.style.opacity = `${1-(window.scrollY * 0.003)}`;
 }
 
 document.addEventListener('mousemove', (e) => mouseMoveAnimate(e));
@@ -168,6 +194,7 @@ function animate() {
 
 	const elapsedTime = clock.getElapsedTime();
 	sphere.rotation.y = 1 * elapsedTime;
+	torusKnot.rotation.x = 0.2 * elapsedTime;
 
 	// sphere.rotation.y += 0.01;
 	// sphere.rotation.x += 0.01;
@@ -185,6 +212,7 @@ function animate() {
 	sphere.scale.z += -0.8 * (targetY - sphere.rotation.x);
 
 	renderer.render(scene, camera);
+	rendererSecond.render(sceneSecond, camera);
 
 	// -- rotating scene
 	let x = camera.position.x;
@@ -211,4 +239,6 @@ window.addEventListener('resize', () => {
 	// Update renderer
 	renderer.setSize(sizes.width, sizes.height);
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+	rendererSecond.setSize(sizes.width, sizes.height);
+	rendererSecond.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
