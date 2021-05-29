@@ -21,6 +21,23 @@ body {
 }
 
 section {
+	position: sticky !important;
+	top: 0;
+
+	height: 200vh !important;
+
+	// background: #f00 !important;
+	// border: 8px solid #000;
+
+	// &:nth-child(2) {
+	// 	background: #0f0 !important;
+	// }
+	// &:nth-child(3) {
+	// 	background: #00f !important;
+	// }
+}
+
+section {
 	$gradient-hegiht: 50px;
 	// $gradient-hegiht: 0;
 
@@ -29,6 +46,7 @@ section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	justify-content: center;
 
 	padding: $wrapper-padding;
@@ -36,15 +54,31 @@ section {
 
 	overflow: hidden;
 
-	&::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
+	// &::after {
+	// 	content: '';
+	// 	position: absolute;
+	// 	bottom: 0;
+	// 	left: 0;
 
-		height: $gradient-hegiht;
-		width: 100%;
-	}
+	// 	height: $gradient-hegiht;
+	// 	width: 100%;
+	// }
+}
+
+section .text-content {
+	position: sticky;
+
+	top: -100%;
+	left: 0;
+
+	transform: translateY(-50%);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	height: 100vh;
+	width: 100%;
 }
 
 section .text-content {
@@ -69,6 +103,54 @@ section .text-content {
 
 		span {
 			display: inline-block;
+		}
+	}
+
+	.dialog {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		height: 100vh;
+		width: 100%;
+
+		& > :first-child {
+			position: relative;
+			margin: 0 auto;
+		}
+
+		P {
+			position: absolute;
+			top: 50%;
+			left: 130%;
+
+			transform: translateY(-50%);
+
+			text-align: center;
+
+			span {
+				display: block;
+
+				font-weight: 100;
+				line-height: 1.5;
+				letter-spacing: 1px;
+			}
+		}
+
+		img {
+			display: block;
+			margin: 0 auto;
+			width: 100px;
+
+			transform: perspective(100px);
+
+			filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(97deg) brightness(100%)
+				contrast(100%);
 		}
 	}
 
@@ -117,5 +199,13 @@ section .text-content {
 		bottom: unset;
 		top: 0;
 		background: linear-gradient(to bottom, #fff 20%, rgba(0, 0, 0, 0) 100%);
+	}
+}
+
+section:last-child {
+	max-height: 100vh;
+
+	.text-content {
+		transform: translateY(0);
 	}
 }

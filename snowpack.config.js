@@ -1,6 +1,15 @@
 module.exports = {
+	// mount: {
+	// 	src: '/',
+	// },
+
+	devOptions: {
+		port: 8081,
+	},
+
 	mount: {
-		src: '/',
+		public: { url: '/', static: true },
+		src: '/_dist_',
 	},
 
 	plugins: [
