@@ -1,0 +1,49 @@
+@media (max-width: 600px) {
+	$wrapper-padding: 0 1rem;
+
+	html {
+		font-size: 14px;
+		overflow-x: hidden;
+	}
+
+	.section-content {
+		padding: 2em;
+	}
+
+	section .text-content {
+		align-items: center;
+
+		padding: 1em;
+
+		width: 100%;
+		max-width: 100000px;
+
+		text-align: center;
+
+		h2 {
+			margin-bottom: 1em;
+			font-size: 2rem;
+		}
+	}
+
+	.section--first {
+		h1 {
+			font-size: 3rem;
+		}
+
+		.dialog {
+			img {
+				margin-top: 50vh;
+			}
+		}
+	}
+
+	.section--second {
+		.circle {
+			height: 40vh;
+		}
+		.additional-text {
+			visibility: hidden;
+		}
+	}
+}

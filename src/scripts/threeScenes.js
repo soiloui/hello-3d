@@ -8,7 +8,7 @@ const threeScenes = () =>
 
 		// ____ Loading
 		const textureLoader = new THREE.TextureLoader();
-		const normalTexture = textureLoader.load('/_dist_/assets/img/texture_6.jpeg');
+		const normalTexture = textureLoader.load(`dist/assets/img/texture_6.jpeg`);
 
 		// ____ Canvas
 		const canvas = document.querySelector('.webgl');
